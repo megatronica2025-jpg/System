@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Megatrônica</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>Sistema MT 2.0.2025</header>
+
+<div id="loginDiv" class="container">
+<h2>Login</h2>
+<input type="text" id="user" placeholder="Usuário"><br>
+<input type="password" id="pass" placeholder="Senha"><br>
+<button onclick="login()">Entrar</button>
+</div>
+
+<div id="trocaSenhaDiv" class="container hidden">
+<h2>Troque sua senha</h2>
+<input type="password" id="novaSenha" placeholder="Nova senha"><br>
+<button onclick="trocarSenha()">Alterar</button>
+</div>
+
+<div id="dashboardDiv" class="container hidden">
+<h2>Dashboard</h2>
+<div class="tab">
+  <button class="tablinks active" onclick="openTab(event,'clientesTab')">Clientes</button>
+  <button class="tablinks" onclick="openTab(event,'pecasTab')">Peças</button>
+  <button class="tablinks" onclick="openTab(event,'ordensTab')">Ordens</button>
+  <button class="tablinks" onclick="openTab(event,'garantiaTab')">Garantia</button>
+  <button class="tablinks" onclick="openTab(event,'estoqueTab')">Estoque</button>
+</div>
+
+<!-- Clientes -->
+<div id="clientesTab" class="tabcontent" style="display:block">
+<h3>Clientes</h3>
+<input type="text" id="cNome" placeholder="Nome">
+<input type="text" id="cTel" placeholder="Telefone">
+<input type="text" id="cEmail" placeholder="Email">
+<button onclick="addCliente()">Adicionar Cliente</button>
+<button onclick="gerarPDF('clientes')">Gerar PDF</button>
+<table id="clientesTable"></table>
+</div>
+
+<!-- Peças -->
+<div id="pecasTab" class="tabcontent">
+<h3>Peças</h3>
+<input type="text" id="pNome" placeholder="Nome">
+<input type="number" id="pQtd" placeholder="Qtd">
+<input type="number" id="pVcomp" placeholder="Valor Compra">
+<input type="number" id="pVvenda" placeholder="Valor Venda">
+<button onclick="addPeca()">Adicionar Peça</button>
+<button onclick="gerarPDF('pecas')">Gerar PDF</button>
+<button onclick="levantamento()">Levantamento</button>
+<table id="pecasTable"></table>
+</div>
+
+<!-- Ordens -->
+<div id="ordensTab" class="tabcontent">
+<h3>Ordens de Serviço</h3>
+<input type="text" id="oCliente" placeholder="Cliente">
+<input type="text" id="oProduto" placeholder="Produto">
+<input type="text" id="oDefeito" placeholder="Defeito">
+<input type="text" id="oServico" placeholder="Serviço">
+<input type="number" id="oValor" placeholder="Valor">
+<button onclick="addOrdem()">Adicionar Ordem</button>
+<button onclick="gerarPDF('ordens')">Gerar PDF</button>
+<button onclick="levantamento()">Levantamento</button>
+<table id="ordensTable"></table>
+</div>
+
+<!-- Garantia -->
+<div id="garantiaTab" class="tabcontent">
+<h3>Ordem de Serviço - Garantia</h3>
+<input type="text" id="gCliente" placeholder="Nome Cliente">
+<input type="text" id="gProduto" placeholder="Produto">
+<input type="text" id="gDefeito" placeholder="Defeito">
+<input type="text" id="gServico" placeholder="Serviço">
+<input type="number" id="gValor" placeholder="Valor">
+<label><input type="checkbox" id="gExtensao"> Extensão de Garantia 90 dias (+R$50)</label>
+<button onclick="addGarantia()">Adicionar Ordem com Garantia</button>
+<button onclick="gerarPDF('garantia')">Gerar PDF</button>
+<table id="garantiaTable"></table>
+</div>
+
+<!-- Estoque -->
+<div id="estoqueTab" class="tabcontent">
+<h3>Estoque de Componentes</h3>
+<input type="text" id="eNome" placeholder="Nome">
+<input type="number" id="eQtd" placeholder="Quantidade">
+<input type="number" id="eVcomp" placeholder="Valor Compra">
+<input type="number" id="eVvenda" placeholder="Valor Venda">
+<button onclick="addEstoque()">Adicionar Entrada</button>
+<input type="number" id="eQtdSaida" placeholder="Qtd Saída">
+<button onclick="saidaEstoque()">Registrar Saída</button>
+<button onclick="gerarPDF('estoque')">Gerar PDF</button>
+<table id="estoqueTable"></table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script src="script.js"></script>
+<script>
+function openTab(evt, tabName){
+    const tabcontent = document.getElementsByClassName("tabcontent");
+    for(let i=0;i<tabcontent.length;i++) tabcontent[i].style.display="none";
+    const tablinks = document.getElementsByClassName("tablinks");
+    for(let i=0;i<tablinks.length;i++) tablinks[i].className=tablinks[i].className.replace(" active","");
+    document.getElementById(tabName).style.display="block";
+    evt.currentTarget.className += " active";
+}
+</script>
+</body>
+</html>
